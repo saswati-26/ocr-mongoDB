@@ -1,0 +1,10 @@
+flask
+flask_jwt_extended
+pymongo
+dotenv
+datetime
+numpy
+opencv-python
+pytesseract
+requests
+cloudinary
