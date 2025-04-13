@@ -16,11 +16,12 @@ client = MongoClient(uri)
 
 auth_bp = Blueprint('auth', __name__)
 
+database = client.get_database("ocr-app")
+users = database.get_collection("users")
+
 @auth_bp.route('/signup', methods=['POST'])
 def signup():
     try: 
-        database = client.get_database("ocr-app")
-        users = database.get_collection("users")
         username = request.json.get("username")
         email = request.json.get("email")
         password = request.json.get("password")
@@ -53,8 +54,6 @@ def signup():
 @auth_bp.route("/login", methods = ["POST"])
 def login():
     try:
-        database = client.get_database("ocr-app")
-        users = database.get_collection("users")
         username = request.json.get("username")
         password = request.json.get("password")
 
@@ -84,9 +83,6 @@ def login():
 @jwt_required()
 def update_user():
     try:
-        database = client.get_database("ocr-app")
-        users = database.get_collection("users")
-
         current_user = get_jwt_identity()
         # print(current_user)
         user_object_id = ObjectId(current_user)
@@ -123,9 +119,6 @@ def update_user():
 @jwt_required()
 def forgot_password():
     try:
-        database = client.get_database("ocr-app")
-        users = database.get_collection("users")
-
         current_user = get_jwt_identity()
         user_object_id = ObjectId(current_user)
         query_filter = {"_id": user_object_id}
@@ -149,9 +142,6 @@ def forgot_password():
 @jwt_required()
 def delete_user():
     try:
-        database = client.get_database("ocr-app")
-        users = database.get_collection("users")
-
         current_user = get_jwt_identity()
         user_object_id = ObjectId(current_user)
         query_filter = {"_id": user_object_id}

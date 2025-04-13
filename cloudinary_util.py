@@ -10,6 +10,9 @@ load_dotenv()
 uri = os.environ.get("MONGODB_CONNECTION_STRING")
 client = MongoClient(uri)
 
+database = client.get_database("ocr-app")
+history = database.get_collection("history")
+
 def upload_image_to_cloudinary(image):
     try:
         upload_response = cloudinary.uploader.upload(image)
@@ -20,8 +23,6 @@ def upload_image_to_cloudinary(image):
 
 def save_image_url_to_mongoDB(user_id, image_url):
     try:
-        database = client.get_database("ocr-app")
-        history = database.get_collection("history")
         save_response = history.insert_one({
             "user_id": user_id,
             "image_url": image_url

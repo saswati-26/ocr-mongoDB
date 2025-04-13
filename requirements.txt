@@ -8,3 +8,4 @@ opencv-python
 pytesseract
 requests
 cloudinary
+deep_translator

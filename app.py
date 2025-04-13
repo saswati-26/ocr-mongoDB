@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from flask_jwt_extended import JWTManager
 from auth import auth_bp
 from main import main_bp
+from routes import routes_bp
 import os
 
 app = Flask(__name__)
@@ -18,10 +19,11 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
 @app.route("/", methods=["GET"])
 def index():
-    return jsonify({"message": "API is running"}), 200
+    return jsonify({"message": "API is running"})
 
 app.register_blueprint(main_bp, url_prefix="/main")
 app.register_blueprint(auth_bp, url_prefix="/auth")
+app.register_blueprint(routes_bp, url_prefix="/routes")
 
 if __name__ == "__main__":
     app.run(debug=True)

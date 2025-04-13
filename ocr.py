@@ -4,8 +4,6 @@ import numpy as np
 import requests
 import os
 
-TESSDATA_PREFIX = os.environ.get('TESSDATA_PREFIX')
-
 def process_image(image_url):
     response = requests.get(image_url)
     image_array = np.frombuffer(response.content, dtype=np.uint8)
